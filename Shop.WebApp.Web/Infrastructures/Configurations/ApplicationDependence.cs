@@ -34,6 +34,8 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
             services.AddSingleton<AddRoleValidators>();
             services.AddSingleton<CreateUserValidator>();
             services.AddSingleton<UpdatUserValidator>();
+            services.AddSingleton<CreateOrUpdateProductValidator>();
+            services.AddSingleton<CreateOrUpdateCategoryValidator>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
@@ -48,6 +50,8 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISendMailService, SendMailService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }

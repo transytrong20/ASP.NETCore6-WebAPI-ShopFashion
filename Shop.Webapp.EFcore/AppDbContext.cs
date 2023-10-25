@@ -13,11 +13,15 @@ namespace Shop.Webapp.EFcore
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<PermissionGrant> PermissionGrants { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<CategoryProduct> CategoryProduct { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.AuthenticationConfiguration();
+            modelBuilder.CategoryProductConfiguration();
         }
     }
 }

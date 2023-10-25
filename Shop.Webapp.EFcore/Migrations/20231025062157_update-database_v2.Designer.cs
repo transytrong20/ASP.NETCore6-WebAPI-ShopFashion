@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Webapp.EFcore;
 
@@ -10,9 +11,10 @@ using Shop.Webapp.EFcore;
 namespace Shop.Webapp.EFcore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025062157_update-database_v2")]
+    partial class updatedatabase_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,7 +295,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-                            CreatedTime = new DateTime(2023, 10, 25, 14, 30, 1, 811, DateTimeKind.Local).AddTicks(2449),
+                            CreatedTime = new DateTime(2023, 10, 25, 13, 21, 57, 481, DateTimeKind.Local).AddTicks(3813),
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -302,7 +304,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Name = "Admin Manager",
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             PhoneVerified = false,
-                            ResetPasswordExpiry = new DateTime(2023, 10, 25, 7, 30, 1, 811, DateTimeKind.Utc).AddTicks(2444),
+                            ResetPasswordExpiry = new DateTime(2023, 10, 25, 6, 21, 57, 481, DateTimeKind.Utc).AddTicks(3808),
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -330,7 +332,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-                            Id = new Guid("6828cb38-2f4d-4422-84b7-ffa1b5149cc2")
+                            Id = new Guid("d9b81691-cfdd-4781-a016-cc8af3a58113")
                         });
                 });
 

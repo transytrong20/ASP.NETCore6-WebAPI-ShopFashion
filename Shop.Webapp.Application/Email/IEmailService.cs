@@ -71,7 +71,6 @@ namespace Shop.Webapp.Application.Email
             DateTime emailTokenExpiry = user.ResetPasswordExpiry;
             if (tokenCode != reset.EmailToken || emailTokenExpiry < DateTime.Now)
                 throw new NotFoundException("Invalid Reset link!");
-            //user.PasswordHash = PasswordHasher.HashPassword(reset.NewPassword);
             _appDbContext.Entry(user).State = EntityState.Modified;
             _appDbContext.SaveChangesAsync();
             return new OkObjectResult(new GenericOkResult<User>(200, "Password Reset Successfully", user));

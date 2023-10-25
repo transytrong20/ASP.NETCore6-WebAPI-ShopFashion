@@ -17,12 +17,17 @@ namespace Shop.Webapp.Application
         {
             CreateMap<AddRoleModel, Role>();
             CreateMap<CreateUserModel, User>();
+            CreateMap<UpdateUserModel, User>();
+            CreateMap<CreateOrUpdateProductModel, Product>();
+            CreateMap<CreateOrUpdateCategoryModel, Category>();
         }
 
         private void EntityToDto()
         {
             CreateMap<Role, RoleDto>();
             CreateMap<User, UserDto>();
+            CreateMap<Product, ProductDto>();
+            CreateMap<Category, CategoryDto>();
         }
     }
 }

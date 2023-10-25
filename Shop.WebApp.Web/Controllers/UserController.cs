@@ -1,18 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.Email;
 using Shop.Webapp.Application.Email.Model;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Application.Services.Abstracts;
-using Shop.Webapp.Domain;
-using Shop.Webapp.EFcore;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
-using System.Security.Cryptography;
 
 namespace Shop.WebApp.Web.Controllers
 {

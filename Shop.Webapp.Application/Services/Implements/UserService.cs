@@ -9,6 +9,7 @@ using Shop.Webapp.Application.Validators;
 using Shop.Webapp.Domain;
 using Shop.Webapp.EFcore.Repositories.Abstracts;
 using Shop.Webapp.Shared.ApiModels;
+using Shop.Webapp.Shared.ApiModels.CheckIfNull;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.Commons;
 using Shop.Webapp.Shared.ConstsDatas;
@@ -59,6 +60,13 @@ namespace Shop.Webapp.Application.Services.Implements
             if (!_roleRepository.AsNoTracking().Any(_ => model.RoleId == _.Id))
                 ThrowModelError(nameof(model.RoleId), MessageError.DataNotFound);
 
+            if (_userRepository.AsNoTracking().Any(_ => model.Email == _.Email))
+                ThrowModelError(nameof(model.Email), "Email already exists");
+            if (_userRepository.AsNoTracking().Any(_ => model.UserName == _.Username))
+                ThrowModelError(nameof(model.UserName), "User name already exists");
+            if (_userRepository.AsNoTracking().Any(_ => model.Phone == _.Phone))
+                ThrowModelError(nameof(model.Phone), "Phone already exists");
+
             var user = Mapper.Map<User>(model);
             user = await _userManager.CreateAsync(new User()
             {
@@ -80,21 +88,23 @@ namespace Shop.Webapp.Application.Services.Implements
 
         public async Task<UserDto> UpdateAsync(Guid id, UpdateUserModel model)
         {
-            var valid = _updateValidator.Validate(model);
-            if (!valid.IsValid)
-                ThrowValidate(valid.Errors);
+            //var valid = _updateValidator.Validate(model);
+            //if (!valid.IsValid)
+            //    ThrowValidate(valid.Errors);
 
             var user = await _userRepository.FindAsync(id);
             if (user == null)
-                throw new Exception("Không tìm thấy tài khoản người dùng");
+                throw new Exception("User account not found");
 
             var isEmailUsed = await _userRepository.AsNoTracking().AnyAsync(x => x.Email == model.Email && x.Id != id);
             if (isEmailUsed)
-                throw new CustomerException($"Email {user.Email} đã được sử dụng");
+                throw new CustomerException($"Email {user.Email} has been used");
 
             var isPhoneUsed = await _userRepository.AsNoTracking().AnyAsync(x => x.Phone == model.Phone && x.Id != id);
             if (!string.IsNullOrEmpty(user.Phone) && isPhoneUsed)
-                throw new CustomerException($"Số điện thoại đã được sử dụng");
+                throw new CustomerException($"Phone number {user.Phone} has been used");
+
+            ModelCheckIfNull<UpdateUserModel, User>.CheckIfNull(model, user);
 
             user.SurName = model.SurName;
             user.Name = model.Name;
@@ -114,7 +124,7 @@ namespace Shop.Webapp.Application.Services.Implements
 
             var user = await _userRepository.FindAsync(id);
             if (user == null)
-                throw new Exception("Không tìm thấy tài khoản người dùng");
+                throw new Exception("User account not found");
 
             var result = Mapper.Map<UserDto>(user);
             return result;
