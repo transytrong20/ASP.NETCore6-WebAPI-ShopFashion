@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Application.Services.Abstracts;
@@ -7,6 +8,7 @@ using Shop.Webapp.Shared.ConstsDatas;
 
 namespace Shop.WebApp.Web.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route($"{ApplicationConsts.FirstRoute}/role")]
     public class RoleController : Controller

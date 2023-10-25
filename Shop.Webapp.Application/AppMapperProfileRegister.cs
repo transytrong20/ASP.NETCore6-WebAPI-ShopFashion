@@ -16,11 +16,13 @@ namespace Shop.Webapp.Application
         private void ModelToEntity()
         {
             CreateMap<AddRoleModel, Role>();
+            CreateMap<CreateUserModel, User>();
         }
 
         private void EntityToDto()
         {
             CreateMap<Role, RoleDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

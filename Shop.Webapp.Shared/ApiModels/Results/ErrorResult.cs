@@ -1,4 +1,4 @@
-﻿namespace Shop.Webapp.Shared.Results
+﻿namespace Shop.Webapp.Shared.ApiModels.Results
 {
     public class ErrorResult
     {

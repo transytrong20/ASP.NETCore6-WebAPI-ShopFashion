@@ -1,8 +1,8 @@
 ﻿using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
-using Shop.Webapp.Shared.Results;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shop.WebApp.Web.Infrastructures.Commons

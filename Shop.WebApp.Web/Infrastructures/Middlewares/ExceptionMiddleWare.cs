@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.Exceptions;
-using Shop.Webapp.Shared.Results;
 
 namespace Shop.WebApp.Web.Infrastructures.Middlewares
 {

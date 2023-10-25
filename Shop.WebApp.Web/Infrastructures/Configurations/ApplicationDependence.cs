@@ -29,6 +29,8 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
             //Validator
             services.AddSingleton<RegisterValidator>();
             services.AddSingleton<AddRoleValidators>();
+            services.AddSingleton<CreateUserValidator>();
+            services.AddSingleton<UpdatUserValidator>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
@@ -40,6 +42,7 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
