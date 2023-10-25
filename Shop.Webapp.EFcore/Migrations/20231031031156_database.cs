@@ -13,6 +13,30 @@ namespace Shop.Webapp.EFcore.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "shop_category",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Index = table.Column<int>(type: "int", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    LastModifiedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    LastModifiedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    DeletedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DeletedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_category", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "shop_permissiongrant",
                 columns: table => new
                 {
@@ -77,6 +101,9 @@ namespace Shop.Webapp.EFcore.Migrations
                     IsLocked = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AccessFailCount = table.Column<int>(type: "int", nullable: false),
                     EndLockedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    ResetPasswordToken = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ResetPasswordExpiry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -88,6 +115,43 @@ namespace Shop.Webapp.EFcore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_shop_user", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "shop_product",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: true),
+                    Image = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    Sold = table.Column<int>(type: "int", nullable: true),
+                    Discount = table.Column<int>(type: "int", nullable: true),
+                    Index = table.Column<int>(type: "int", nullable: true),
+                    Accepted = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    CategoryId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    CreatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    LastModifiedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    LastModifiedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    DeletedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DeletedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_product", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_shop_product_shop_category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "shop_category",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -117,6 +181,32 @@ namespace Shop.Webapp.EFcore.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "shop_category_product",
+                columns: table => new
+                {
+                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CategoryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_category_product", x => new { x.CategoryId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_shop_category_product_shop_category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "shop_category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_shop_category_product_shop_product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "shop_product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "shop_role",
                 columns: new[] { "Id", "Description", "IsDefault", "Name", "Static" },
@@ -124,13 +214,23 @@ namespace Shop.Webapp.EFcore.Migrations
 
             migrationBuilder.InsertData(
                 table: "shop_user",
-                columns: new[] { "Id", "AccessFailCount", "AllowLockUser", "Avatar", "CreatedBy", "CreatedTime", "DeletedBy", "DeletedTime", "Email", "EmailVerified", "EmailVerifiedTime", "EndLockedTime", "HashCode", "IsDeleted", "IsLocked", "LastModifiedBy", "LastModifiedTime", "Name", "PasswordHash", "Phone", "PhoneVerified", "PhoneVerifiedTime", "SurName", "Username" },
-                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 10, 25, 4, 4, 1, 176, DateTimeKind.Local).AddTicks(3859), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", null, false, null, "Tài khoản admin", "manager" });
+                columns: new[] { "Id", "AccessFailCount", "AllowLockUser", "Avatar", "CreatedBy", "CreatedTime", "DeletedBy", "DeletedTime", "Email", "EmailVerified", "EmailVerifiedTime", "EndLockedTime", "HashCode", "IsDeleted", "IsLocked", "LastModifiedBy", "LastModifiedTime", "Name", "PasswordHash", "Phone", "PhoneVerified", "PhoneVerifiedTime", "ResetPasswordExpiry", "ResetPasswordToken", "SurName", "Username" },
+                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 10, 31, 10, 11, 56, 240, DateTimeKind.Local).AddTicks(7913), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", null, false, null, new DateTime(2023, 10, 31, 3, 11, 56, 240, DateTimeKind.Utc).AddTicks(7909), null, "Tài khoản admin", "manager" });
 
             migrationBuilder.InsertData(
                 table: "shop_userrole",
                 columns: new[] { "RoleId", "UserId", "Id" },
-                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("8827a01a-090a-4a2b-a1f8-2f6647ed3f16") });
+                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("3b213aa4-2348-4d63-98cc-a56f68fd7ad7") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_shop_category_product_ProductId",
+                table: "shop_category_product",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_shop_product_CategoryId",
+                table: "shop_product",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_shop_userrole_UserId",
@@ -141,16 +241,25 @@ namespace Shop.Webapp.EFcore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "shop_category_product");
+
+            migrationBuilder.DropTable(
                 name: "shop_permissiongrant");
 
             migrationBuilder.DropTable(
                 name: "shop_userrole");
 
             migrationBuilder.DropTable(
+                name: "shop_product");
+
+            migrationBuilder.DropTable(
                 name: "shop_role");
 
             migrationBuilder.DropTable(
                 name: "shop_user");
+
+            migrationBuilder.DropTable(
+                name: "shop_category");
         }
     }
 }

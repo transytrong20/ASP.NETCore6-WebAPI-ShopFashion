@@ -108,6 +108,9 @@ namespace Shop.Webapp.EFcore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<bool?>("Accepted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("char(36)");
 
@@ -124,15 +127,16 @@ namespace Shop.Webapp.EFcore.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Discount")
+                    b.Property<int?>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("Index")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -147,13 +151,13 @@ namespace Shop.Webapp.EFcore.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("Sold")
+                    b.Property<int?>("Sold")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -293,7 +297,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-                            CreatedTime = new DateTime(2023, 10, 25, 14, 30, 1, 811, DateTimeKind.Local).AddTicks(2449),
+                            CreatedTime = new DateTime(2023, 10, 31, 10, 11, 56, 240, DateTimeKind.Local).AddTicks(7913),
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -302,7 +306,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Name = "Admin Manager",
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             PhoneVerified = false,
-                            ResetPasswordExpiry = new DateTime(2023, 10, 25, 7, 30, 1, 811, DateTimeKind.Utc).AddTicks(2444),
+                            ResetPasswordExpiry = new DateTime(2023, 10, 31, 3, 11, 56, 240, DateTimeKind.Utc).AddTicks(7909),
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -330,7 +334,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-                            Id = new Guid("6828cb38-2f4d-4422-84b7-ffa1b5149cc2")
+                            Id = new Guid("3b213aa4-2348-4d63-98cc-a56f68fd7ad7")
                         });
                 });
 

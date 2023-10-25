@@ -8,7 +8,7 @@ using Shop.Webapp.Shared.ConstsDatas;
 
 namespace Shop.WebApp.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route($"{ApplicationConsts.FirstRoute}/category")]
     public class CategoryController : Controller
