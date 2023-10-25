@@ -30,6 +30,8 @@ namespace Shop.Webapp.Domain
         public bool IsLocked { get; set; }
         public int AccessFailCount { get; set; }
         public DateTime? EndLockedTime { get; set; }
+        public string? ResetPasswordToken { get; set; }
+        public DateTime ResetPasswordExpiry { get; set; } = DateTime.UtcNow;
 
         public virtual ICollection<UserRole> Roles { get; set; }
     }

@@ -1,10 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Shop.Webapp.Application.Dto;
+using Shop.Webapp.Application.Email;
+using Shop.Webapp.Application.Email.Model;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Application.Services.Abstracts;
+using Shop.Webapp.Domain;
+using Shop.Webapp.EFcore;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
+using System.Security.Cryptography;
 
 namespace Shop.WebApp.Web.Controllers
 {
@@ -14,9 +22,11 @@ namespace Shop.WebApp.Web.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IEmailService _emailService;
+        public UserController(IUserService userService, IEmailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
 
         [AllowAnonymous]
@@ -61,6 +71,22 @@ namespace Shop.WebApp.Web.Controllers
         public async Task<bool> ChangePassword(Guid userId, string newPassword, string conFirm)
         {
             var result = await _userService.ChangePasswordAsync(userId, newPassword, conFirm);
+            return result;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("send-reset-email{email}")]
+        public async Task<IActionResult> SendEmail(string email)
+        {
+            var result = await _emailService.SendEmailAsync(email);
+            return result;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel reset)
+        {
+            var result = await _emailService.ResetPasswordAsync(reset);
             return result;
         }
     }

@@ -3,6 +3,9 @@ using Shop.Webapp.Application;
 using Shop.Webapp.Application.Auth;
 using Shop.Webapp.Application.Auth.Abstracts;
 using Shop.Webapp.Application.Auth.Implements;
+using Shop.Webapp.Application.Email;
+using Shop.Webapp.Application.Email.Abstracts;
+using Shop.Webapp.Application.Email.Implements;
 using Shop.Webapp.Application.Services.Abstracts;
 using Shop.Webapp.Application.Services.Implements;
 using Shop.Webapp.Application.Validators;
@@ -43,6 +46,8 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ISendMailService, SendMailService>();
         }
     }
 }
