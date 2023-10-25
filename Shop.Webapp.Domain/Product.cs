@@ -7,14 +7,14 @@ namespace Shop.Webapp.Domain
     {
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
-        [Required]
-        public decimal Price { get; set; }
-        public string Image { get; set; }
-        public int Status { get; set; }
-        public int Sold { get; set; } = 0; //đã bán
-        public int Discount { get; set; } //giảm giá
+        public string? Description { get; set; }
+        public decimal? Price { get; set; }
+        public string? Image { get; set; }
+        public int? Status { get; set; }
+        public int? Sold { get; set; } = 0; //đã bán
+        public int? Discount { get; set; } //giảm giá
+        public int? Index { get; set; }
+        public bool? Accepted { get; set; } //duyệt
         public virtual IEnumerable<CategoryProduct> Categories { get; set; }
     }
 }

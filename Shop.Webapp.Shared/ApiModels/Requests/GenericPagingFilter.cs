@@ -4,6 +4,5 @@
     {
         public string? SearchKey { get; set; }
         public bool? Accepted { get; set; }
-
     }
 }
