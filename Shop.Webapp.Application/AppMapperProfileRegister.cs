@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Shop.Webapp.Application.Dto;
+using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Domain;
 
 namespace Shop.Webapp.Application
@@ -13,12 +15,12 @@ namespace Shop.Webapp.Application
 
         private void ModelToEntity()
         {
-            
+            CreateMap<AddRoleModel, Role>();
         }
 
         private void EntityToDto()
         {
-
+            CreateMap<Role, RoleDto>();
         }
     }
 }

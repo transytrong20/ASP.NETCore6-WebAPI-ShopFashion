@@ -9,7 +9,7 @@ namespace Shop.WebApp.Web.Controllers
 {
     [ApiController]
     [Route($"{ApplicationConsts.FirstRoute}/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
         private readonly IAuthService _authService;
         public AuthController( IAuthService authService)

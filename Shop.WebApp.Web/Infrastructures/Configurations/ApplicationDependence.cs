@@ -3,6 +3,8 @@ using Shop.Webapp.Application;
 using Shop.Webapp.Application.Auth;
 using Shop.Webapp.Application.Auth.Abstracts;
 using Shop.Webapp.Application.Auth.Implements;
+using Shop.Webapp.Application.Services.Abstracts;
+using Shop.Webapp.Application.Services.Implements;
 using Shop.Webapp.Application.Validators;
 using Shop.Webapp.EFcore;
 using Shop.Webapp.EFcore.Repositories.Abstracts;
@@ -26,6 +28,7 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
 
             //Validator
             services.AddSingleton<RegisterValidator>();
+            services.AddSingleton<AddRoleValidators>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
@@ -36,6 +39,7 @@ namespace Shop.WebApp.Web.Infrastructures.Configurations
             services.AddScoped<IRoleManager, RoleManager>();
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
     }
 }
