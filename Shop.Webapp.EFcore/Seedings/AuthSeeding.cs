@@ -28,6 +28,13 @@ namespace Shop.Webapp.EFcore.Seedings
                     IsDefault = false,
                     Static = true,
                     Description = "Quyền admin, quản lý toàn bộ trang web"
+                },
+                new Role(){
+                    Id = Guid.Parse("9fdf3383-125f-4b87-a8d9-9e235a4e3652"),
+                    Name = "user",
+                    IsDefault = false,
+                    Static = true,
+                    Description = "tài khoản dành cho user"
                 }
             };
         }
