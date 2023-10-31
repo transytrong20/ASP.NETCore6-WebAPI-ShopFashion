@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.Webapp.Application.Auth;
 using Shop.Webapp.Application.Auth.Models;
+using Shop.Webapp.Shared.ApiModels.ResponseMessage;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
 
@@ -12,15 +13,30 @@ namespace Shop.WebApp.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        public AuthController( IAuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
         [HttpPost("login")]
-        public async Task<TokenResult> Login([FromBody] LoginModel model)
+        public async Task<MessageSuccess<TokenResult>> Login([FromBody] LoginModel model)
         {
-            return await _authService.LoginAsync(model);
+            var result = await _authService.LoginAsync(model);
+            if (result != null)
+            {
+                return new MessageSuccess<TokenResult>
+                {
+                    Success = true,
+                    Data = result,
+                    Message = "User login successfully."
+                };
+            }
+            return new MessageSuccess<TokenResult>
+            {
+                Success = false,
+                Data = null,
+                Message = "User login failed."
+            };
         }
 
         [Authorize]
