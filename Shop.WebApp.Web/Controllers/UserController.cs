@@ -5,6 +5,7 @@ using Shop.Webapp.Application.Email;
 using Shop.Webapp.Application.Email.Model;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Application.Services.Abstracts;
+using Shop.Webapp.Shared.ApiModels.ResponseMessage;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
 
@@ -25,10 +26,25 @@ namespace Shop.WebApp.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost("CreateUser")]
-        public async Task<UserDto> CreateUser([FromBody] CreateUserModel model)
+        public async Task<MessageSuccess<UserDto>> CreateUser([FromBody] CreateUserModel model)
         {
             var result = await _userService.CreateAsync(model);
-            return result;
+
+            if (result != null)
+            {
+                return new MessageSuccess<UserDto>
+                {
+                    Success = true,
+                    Data = result,
+                    Message = "User created successfully."
+                };
+            }
+            return new MessageSuccess<UserDto>
+            {
+                Success = false,
+                Data = null,
+                Message = "User creation failed."
+            };
         }
 
 
