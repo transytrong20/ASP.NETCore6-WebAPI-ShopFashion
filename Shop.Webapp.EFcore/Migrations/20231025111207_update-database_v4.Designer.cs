@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Webapp.EFcore;
 
@@ -10,9 +11,10 @@ using Shop.Webapp.EFcore;
 namespace Shop.Webapp.EFcore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025111207_update-database_v4")]
+    partial class updatedatabase_v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,11 +154,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<decimal?>("Price")
-<<<<<<< HEAD
-                        .HasColumnType("decimal(65,30)");
-=======
                         .HasColumnType("decimal(18,2)");
->>>>>>> 85db6427c109500ecccd51dc7ade04dbba6995b5
 
                     b.Property<int?>("Sold")
                         .HasColumnType("int");
@@ -301,11 +299,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-<<<<<<< HEAD
-                            CreatedTime = new DateTime(2023, 10, 31, 10, 11, 56, 240, DateTimeKind.Local).AddTicks(7913),
-=======
                             CreatedTime = new DateTime(2023, 10, 25, 18, 12, 7, 236, DateTimeKind.Local).AddTicks(4384),
->>>>>>> 85db6427c109500ecccd51dc7ade04dbba6995b5
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -314,11 +308,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Name = "Admin Manager",
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             PhoneVerified = false,
-<<<<<<< HEAD
-                            ResetPasswordExpiry = new DateTime(2023, 10, 31, 3, 11, 56, 240, DateTimeKind.Utc).AddTicks(7909),
-=======
                             ResetPasswordExpiry = new DateTime(2023, 10, 25, 11, 12, 7, 236, DateTimeKind.Utc).AddTicks(4379),
->>>>>>> 85db6427c109500ecccd51dc7ade04dbba6995b5
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -346,11 +336,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-<<<<<<< HEAD
-                            Id = new Guid("3b213aa4-2348-4d63-98cc-a56f68fd7ad7")
-=======
                             Id = new Guid("a1cc3c20-f007-4817-bc97-3e1b1856fbe8")
->>>>>>> 85db6427c109500ecccd51dc7ade04dbba6995b5
                         });
                 });
 
