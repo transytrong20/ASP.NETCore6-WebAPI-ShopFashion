@@ -11,7 +11,7 @@ namespace Shop.Webapp.Application.RequestObjects
         public string Phone { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public Guid RoleId { get; set; } = new Guid("9fdf3383-125f-4b87-a8d9-9e235a4e3652");
+        public Guid RoleId { get; set; } = Guid.Parse("9fdf3383-125f-4b87-a8d9-9e235a4e3652");
     }
 
     public class UpdateUserModel
