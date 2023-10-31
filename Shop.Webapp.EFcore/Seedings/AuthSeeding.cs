@@ -13,7 +13,7 @@ namespace Shop.Webapp.EFcore.Seedings
                     SurName = "Tài khoản admin", Name = "Admin Manager",
                     HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
                     Username = "manager", PasswordHash = "1q2w3E*".GetPasswordHash("49267eb3-4174-4081-a3e0-c57cfc001355"),
-                    Email = "manager@gmail.com", EmailVerified = true,
+                    Email = "manager@gmail.com", EmailVerified = true, Phone = "1",
                     AllowLockUser = false
                 }
             };

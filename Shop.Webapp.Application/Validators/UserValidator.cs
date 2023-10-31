@@ -22,6 +22,8 @@ namespace Shop.Webapp.Application.Validators
                 .WithMessage(MessageError.UnValid);
 
             RuleFor(x => x.Password).NotEmpty().WithMessage(MessageError.NotEmpty);
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty().WithMessage(MessageError.NotEmpty).Equal(x => x.Password).WithMessage("Passwords do not match");
         }
     }
 
