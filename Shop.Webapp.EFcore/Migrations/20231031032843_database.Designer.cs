@@ -11,8 +11,8 @@ using Shop.Webapp.EFcore;
 namespace Shop.Webapp.EFcore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231025111207_update-database_v4")]
-    partial class updatedatabase_v4
+    [Migration("20231031032843_database")]
+    partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,7 +154,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("Sold")
                         .HasColumnType("int");
@@ -299,7 +299,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-                            CreatedTime = new DateTime(2023, 10, 25, 18, 12, 7, 236, DateTimeKind.Local).AddTicks(4384),
+                            CreatedTime = new DateTime(2023, 10, 31, 10, 28, 43, 94, DateTimeKind.Local).AddTicks(5928),
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -308,7 +308,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Name = "Admin Manager",
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             PhoneVerified = false,
-                            ResetPasswordExpiry = new DateTime(2023, 10, 25, 11, 12, 7, 236, DateTimeKind.Utc).AddTicks(4379),
+                            ResetPasswordExpiry = new DateTime(2023, 10, 31, 3, 28, 43, 94, DateTimeKind.Utc).AddTicks(5923),
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -336,7 +336,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-                            Id = new Guid("a1cc3c20-f007-4817-bc97-3e1b1856fbe8")
+                            Id = new Guid("5423e218-df68-4bdf-a3db-0c2608a18d1d")
                         });
                 });
 

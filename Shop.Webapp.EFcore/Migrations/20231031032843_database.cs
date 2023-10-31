@@ -215,12 +215,12 @@ namespace Shop.Webapp.EFcore.Migrations
             migrationBuilder.InsertData(
                 table: "shop_user",
                 columns: new[] { "Id", "AccessFailCount", "AllowLockUser", "Avatar", "CreatedBy", "CreatedTime", "DeletedBy", "DeletedTime", "Email", "EmailVerified", "EmailVerifiedTime", "EndLockedTime", "HashCode", "IsDeleted", "IsLocked", "LastModifiedBy", "LastModifiedTime", "Name", "PasswordHash", "Phone", "PhoneVerified", "PhoneVerifiedTime", "ResetPasswordExpiry", "ResetPasswordToken", "SurName", "Username" },
-                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 10, 31, 10, 11, 56, 240, DateTimeKind.Local).AddTicks(7913), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", null, false, null, new DateTime(2023, 10, 31, 3, 11, 56, 240, DateTimeKind.Utc).AddTicks(7909), null, "Tài khoản admin", "manager" });
+                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 10, 31, 10, 28, 43, 94, DateTimeKind.Local).AddTicks(5928), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", null, false, null, new DateTime(2023, 10, 31, 3, 28, 43, 94, DateTimeKind.Utc).AddTicks(5923), null, "Tài khoản admin", "manager" });
 
             migrationBuilder.InsertData(
                 table: "shop_userrole",
                 columns: new[] { "RoleId", "UserId", "Id" },
-                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("3b213aa4-2348-4d63-98cc-a56f68fd7ad7") });
+                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("5423e218-df68-4bdf-a3db-0c2608a18d1d") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_shop_category_product_ProductId",
