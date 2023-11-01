@@ -18,10 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="wwwroot\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Shop.Webapp.Application\Shop.Webapp.Application.csproj" />
 		<ProjectReference Include="..\Shop.Webapp.EFcore\Shop.Webapp.EFcore.csproj" />
 		<ProjectReference Include="..\Shop.Webapp.Shared\Shop.Webapp.Shared.csproj" />
