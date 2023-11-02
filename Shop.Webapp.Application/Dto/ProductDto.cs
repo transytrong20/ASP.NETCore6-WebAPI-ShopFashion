@@ -18,6 +18,8 @@ namespace Shop.Webapp.Application.Dto
         public int? Discount { get; set; }
         public bool? Accepted { get; set; }
         public int? Index { get; set; }
+        public bool? New { get; set; }
+        public bool? Sale { get; set; }
         public Guid? CategoryId { get; set; }
         public string[] CategoryName { get; set; } = new string[0];
     }

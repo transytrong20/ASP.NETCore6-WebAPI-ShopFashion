@@ -15,6 +15,8 @@ namespace Shop.Webapp.Domain
         public int? Discount { get; set; } //giảm giá
         public int? Index { get; set; }
         public bool? Accepted { get; set; } //duyệt
+        public bool? New { get; set; } //sản phẩm mới
+        public bool? Sale { get; set; } //sản phẩm giảm giá
         public virtual IEnumerable<CategoryProduct> Categories { get; set; }
     }
 }

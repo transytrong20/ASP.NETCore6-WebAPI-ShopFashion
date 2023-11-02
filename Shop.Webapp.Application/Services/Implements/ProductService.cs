@@ -205,6 +205,8 @@ namespace Shop.Webapp.Application.Services.Implements
                 list.Discount = p.Discount;
                 list.Accepted = p.Accepted;
                 list.Index = p.Index;
+                list.New = p.New;
+                list.Sale = p.Sale;
                 //list.CategoryId = categoryId;
                 //list.CategoryName = _categoryRepository.AsNoTracking().Where(x => x.Id == categoryId).Select(x => x.Name).ToArray();
 
