@@ -193,9 +193,6 @@ namespace Shop.Webapp.Application.Services.Implements
             var product = _productRepository.AsNoTracking().ToList();
             foreach (var p in product)
             {
-
-                //var categories = p.Categories;
-                //var categoryId = categories.Select(c => c.CategoryId).FirstOrDefault();
                 ProductDto list = new ProductDto();
                 list.Name = p.Name;
                 list.Description = p.Description;
@@ -207,8 +204,31 @@ namespace Shop.Webapp.Application.Services.Implements
                 list.Index = p.Index;
                 list.New = p.New;
                 list.Sale = p.Sale;
-                //list.CategoryId = categoryId;
-                //list.CategoryName = _categoryRepository.AsNoTracking().Where(x => x.Id == categoryId).Select(x => x.Name).ToArray();
+                list.SaleTurn = p.SaleTurn;
+
+                result.Add(list);
+            }
+            return result;
+        }
+
+        public List<ProductDto> GetlistProductSaleTurn()
+        {
+            List<ProductDto> result = new List<ProductDto>();
+            var product = _productRepository.AsNoTracking().OrderByDescending(p => p.SaleTurn).ToList().Take(4);
+            foreach (var p in product)
+            {
+                ProductDto list = new ProductDto();
+                list.Name = p.Name;
+                list.Description = p.Description;
+                list.Price = p.Price;
+                list.Image = p.Image;
+                list.Status = p.Status;
+                list.Discount = p.Discount;
+                list.Accepted = p.Accepted;
+                list.Index = p.Index;
+                list.New = p.New;
+                list.Sale = p.Sale;
+                list.SaleTurn = p.SaleTurn;
 
                 result.Add(list);
             }

@@ -54,5 +54,12 @@ namespace Shop.WebApp.Web.Controllers
             var result = _productService.GetlistProduct();
             return Ok(result); 
         }
+
+        [HttpGet("getlistProductSaleTurn")]
+        public IActionResult GetListProductSaleTurn()
+        {
+            var result = _productService.GetlistProductSaleTurn();
+            return Ok(result);
+        }
     }
 }

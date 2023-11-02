@@ -13,5 +13,6 @@ namespace Shop.Webapp.Application.Services.Abstracts
         Task<ProductDto> UpdateAsync(Guid id, CreateOrUpdateProductModel model);
         Task<GenericPagingResult<ProductDto>> GetPagingAsync(OrderInformationPagingFilter filter);
         public List<ProductDto> GetlistProduct();
+        public List<ProductDto> GetlistProductSaleTurn();
     }
 }
