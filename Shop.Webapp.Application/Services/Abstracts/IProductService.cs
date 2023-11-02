@@ -1,4 +1,5 @@
-﻿using Shop.Webapp.Application.Dto;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Shared.ApiModels.Results;
 
@@ -11,5 +12,6 @@ namespace Shop.Webapp.Application.Services.Abstracts
         Task RemoveAsync(Guid id);
         Task<ProductDto> UpdateAsync(Guid id, CreateOrUpdateProductModel model);
         Task<GenericPagingResult<ProductDto>> GetPagingAsync(OrderInformationPagingFilter filter);
+        public List<ProductDto> GetlistProduct();
     }
 }

@@ -47,5 +47,12 @@ namespace Shop.WebApp.Web.Controllers
         {
             return await _productService.GetPagingAsync(filter);
         }
+
+        [HttpGet("getlistProduct")]
+        public IActionResult GetListProduct()
+        {
+            var result = _productService.GetlistProduct();
+            return Ok(result); 
+        }
     }
 }

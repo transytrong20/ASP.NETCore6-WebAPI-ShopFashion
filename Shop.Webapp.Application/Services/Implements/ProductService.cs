@@ -12,6 +12,8 @@ using Shop.Webapp.Shared.ApiModels.CheckIfNull;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
 using Shop.Webapp.Shared.Exceptions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
 
 namespace Shop.Webapp.Application.Services.Implements
 {
@@ -183,6 +185,32 @@ namespace Shop.Webapp.Application.Services.Implements
             });
 
             return new GenericPagingResult<ProductDto>(total, data, filter);
+        }
+
+        public List<ProductDto> GetlistProduct()
+        {
+            List<ProductDto> result = new List<ProductDto>();
+            var product = _productRepository.AsNoTracking().ToList();
+            foreach (var p in product)
+            {
+
+                //var categories = p.Categories;
+                //var categoryId = categories.Select(c => c.CategoryId).FirstOrDefault();
+                ProductDto list = new ProductDto();
+                list.Name = p.Name;
+                list.Description = p.Description;
+                list.Price = p.Price;
+                list.Image = p.Image;
+                list.Status = p.Status;
+                list.Discount = p.Discount;
+                list.Accepted = p.Accepted;
+                list.Index = p.Index;
+                //list.CategoryId = categoryId;
+                //list.CategoryName = _categoryRepository.AsNoTracking().Where(x => x.Id == categoryId).Select(x => x.Name).ToArray();
+
+                result.Add(list);
+            }
+            return result;
         }
     }
 }
