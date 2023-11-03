@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
-using Shop.WebApp.Web.Error.Models;
-using Shop.WebApp.Web.Infrastructures.Configurations;
+﻿using Shop.WebApp.Web.Infrastructures.Configurations;
 using Shop.WebApp.Web.Infrastructures.Middlewares;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,7 +58,7 @@ var app = builder.Build();
 
 //        await context.Response.WriteAsync($"<h1>Error: {exception.Message}</h1>").ConfigureAwait(false);
 //    });
-});
+//});
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
