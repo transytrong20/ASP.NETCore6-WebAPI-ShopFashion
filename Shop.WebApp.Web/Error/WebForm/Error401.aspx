@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="Error401.aspx.cs" Inherits="SmartE.WebForm21" %>
+<%@ Page Title="" Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
