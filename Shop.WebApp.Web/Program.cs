@@ -1,4 +1,5 @@
-﻿using Shop.WebApp.Web.Infrastructures.Configurations;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Shop.WebApp.Web.Infrastructures.Configurations;
 using Shop.WebApp.Web.Infrastructures.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,20 @@ builder.Services.AddCors(options =>
 );
 
 var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "text/html";
+
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+
+        await context.Response.WriteAsync($"<h1>Error: {exception.Message}</h1>").ConfigureAwait(false);
+    });
+});
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
