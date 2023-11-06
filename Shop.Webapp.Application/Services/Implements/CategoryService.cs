@@ -43,9 +43,10 @@ namespace Shop.Webapp.Application.Services.Implements
 
         public async Task<CategoryDto[]> GetAllAsync()
         {
-            var categories = _categoryRepository.AsNoTracking().ToArray();
+            var categories = _categoryRepository.AsNoTracking().OrderBy(x=>x.Index).ToArray();
             return categories.Select(x => new CategoryDto
             {
+                Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 Index = x.Index,
