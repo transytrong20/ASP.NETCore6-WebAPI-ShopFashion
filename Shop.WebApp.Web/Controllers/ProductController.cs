@@ -62,6 +62,10 @@ namespace Shop.WebApp.Web.Controllers
             return Ok(result);
         }
 
-
+        [HttpPut("update-index")]
+        public async Task<string> UpdateNewsIndexAsync([FromForm] Guid indexId, int index)
+        {
+            return await _productService.UpdateIndexAsync(indexId, index);
+        }
     }
 }

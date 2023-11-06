@@ -13,7 +13,9 @@ namespace Shop.Webapp.Application.RequestObjects
         public int? Discount { get; set; }
         public Guid? CategoryId { get; set; }
         public bool? Accepted { get; set; }
-        public int? Index { get; set; }
+        public int? Index { get; set; } 
+        public bool? New { get; set; } = false;
+        public bool? Sale { get; set; } = false;
     }
 
     public class OrderInformationPagingFilter : GenericPagingFilter

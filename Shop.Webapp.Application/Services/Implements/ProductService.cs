@@ -12,8 +12,6 @@ using Shop.Webapp.Shared.ApiModels.CheckIfNull;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
 using Shop.Webapp.Shared.Exceptions;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
 
 namespace Shop.Webapp.Application.Services.Implements
 {
@@ -65,9 +63,40 @@ namespace Shop.Webapp.Application.Services.Implements
                 ProductId = product.Id,
                 CategoryId = model.CategoryId.Value
             });
-
             await UnitOfWork.SaveChangesAsync();
             return Mapper.Map<ProductDto>(product);
+        }
+
+        public async Task<string> UpdateIndexAsync(Guid indexId, int index)
+        {
+            var arr = await _productRepository.AsNoTracking().Where(x => x.Index >= index || x.Id == indexId).ToArrayAsync();
+            if (!arr.Any(x => x.Id == indexId))
+                throw new NotFoundException(MessageError.NotFound);
+            arr = arr.Select(x =>
+            {
+                if (x.Id == indexId)
+                {
+                    x.Index = index;
+                }
+
+                var check = _productRepository.AsNoTracking().Where(x => x.Id == indexId).Select(x => x.Index);
+                if (x.Index <= check.FirstOrDefault() && x.Id != indexId)
+                {
+                    x.Index++;
+                }
+                return x;
+            }).ToArray();
+
+            try
+            {
+                await _productRepository.UpdateManyAsync(arr);
+                await _productRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("Error updating database: " + MessageError.NotFound);
+            }
+            return ActionMessage.Update;
         }
 
         public async Task<ProductDto> GetByIdAsync(Guid id)
@@ -190,7 +219,7 @@ namespace Shop.Webapp.Application.Services.Implements
         public List<ProductDto> GetlistProduct()
         {
             List<ProductDto> result = new List<ProductDto>();
-            var product = _productRepository.AsNoTracking().ToList();
+            var product = _productRepository.AsNoTracking().OrderBy(x => x.Index).Take(6).ToList();
             foreach (var p in product)
             {
                 ProductDto list = new ProductDto();

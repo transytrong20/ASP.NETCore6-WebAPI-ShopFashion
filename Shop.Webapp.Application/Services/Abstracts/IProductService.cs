@@ -14,5 +14,6 @@ namespace Shop.Webapp.Application.Services.Abstracts
         Task<GenericPagingResult<ProductDto>> GetPagingAsync(OrderInformationPagingFilter filter);
         public List<ProductDto> GetlistProduct();
         public List<ProductDto> GetlistProductSaleTurn();
+        Task<string> UpdateIndexAsync(Guid indexId, int index);
     }
 }
