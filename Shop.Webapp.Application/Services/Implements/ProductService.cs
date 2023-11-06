@@ -243,7 +243,7 @@ namespace Shop.Webapp.Application.Services.Implements
         public List<ProductDto> GetlistProductSaleTurn()
         {
             List<ProductDto> result = new List<ProductDto>();
-            var product = _productRepository.AsNoTracking().OrderByDescending(p => p.SaleTurn).ToList().Take(4);
+            var product = _productRepository.AsNoTracking().OrderByDescending(p => p.Sold).ToList().Take(4);
             foreach (var p in product)
             {
                 ProductDto list = new ProductDto();
