@@ -61,5 +61,7 @@ namespace Shop.WebApp.Web.Controllers
             var result = _productService.GetlistProductSaleTurn();
             return Ok(result);
         }
+
+
     }
 }

@@ -1,10 +1,31 @@
-﻿using Shop.WebApp.Web.Infrastructures.Configurations;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Shop.WebApp.Web.Error.ErrorModel;
+using Shop.WebApp.Web.Infrastructures.Configurations;
 using Shop.WebApp.Web.Infrastructures.Middlewares;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.SwaggerServiceConfig();
 // Add services to the container.
+
+//customErrors
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+    options.InvalidModelStateResponseFactory = actionContext =>
+    {
+        var modelState = actionContext.ModelState.Values;
+        return new BadRequestObjectResult(new ErrorModel
+        {
+            Status = (int)HttpStatusCode.BadRequest,
+            Title = ReasonPhrases.GetReasonPhrase((int)HttpStatusCode.BadRequest),
+            Error = modelState.SelectMany(x => x.Errors, (x, y) => y.ErrorMessage).ToList(),
+        });
+    };
+});
 
 builder.Services.AutoRegister(builder.Configuration);
 builder.Services.AddControllers();
@@ -29,6 +50,20 @@ builder.Services.AddCors(options =>
 );
 
 var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "text/html";
+
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+
+        await context.Response.WriteAsync($"<h1>Error: {exception.Message}</h1>").ConfigureAwait(false);
+    });
+});
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
