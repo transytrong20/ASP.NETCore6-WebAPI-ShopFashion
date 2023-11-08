@@ -56,5 +56,7 @@ namespace Shop.WebApp.Web.Controllers
         {
             return await _categoryService.UpdateIndexAsync(indexId, index);
         }
+
+
     }
 }
