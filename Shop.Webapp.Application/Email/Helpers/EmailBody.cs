@@ -2,16 +2,11 @@
 
 namespace Shop.Webapp.Application.Email.Helpers
 {
-    public class EmailBody
+    public static class EmailBody
     {
-        private readonly IConfiguration _configuration;
-        public EmailBody(IConfiguration configuration)
+        public static string EmailStringBody(IConfiguration configuration, string email, string emailToken)
         {
-            _configuration = configuration;
-        }
-        public string EmailStringBody(string email, string emailToken)
-        {
-            string LinkSendEmail = _configuration.GetSection("SendEmail").Value;
+            string LinkSendEmail = configuration.GetSection("SendEmail").Value;
             return $@"<html>
 <head>
 </head>

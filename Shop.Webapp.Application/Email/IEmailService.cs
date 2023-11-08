@@ -31,7 +31,7 @@ namespace Shop.Webapp.Application.Email
         private readonly IConfiguration _configuration;
 
         public EmailService(IRepository<User> userRepository,
-            IConfiguration configuration, 
+            IConfiguration configuration,
             ISendMailService sendEmailService,
             AppDbContext appDbContext,
             IUnitOfWork unitOfWork,
@@ -54,7 +54,7 @@ namespace Shop.Webapp.Application.Email
             user.ResetPasswordToken = emailToken;
             user.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
             string from = _configuration.GetSection("From").Value;
-            var emailModel = new EmailModel(email, "Reset Password", EmailBody.EmailStringBody(email, emailToken));
+            var emailModel = new EmailModel(email, "Reset Password", EmailBody.EmailStringBody(_configuration, email, emailToken));
             _sendEmailService.SendEmailAsync(emailModel);
             _appDbContext.Entry(user).State = EntityState.Modified;
             await _userRepository.SaveChangesAsync();
