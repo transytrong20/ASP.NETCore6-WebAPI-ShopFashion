@@ -1,9 +1,17 @@
-﻿namespace Shop.Webapp.Application.Email.Helpers
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Shop.Webapp.Application.Email.Helpers
 {
-    public static class EmailBody
+    public class EmailBody
     {
-        public static string EmailStringBody(string email, string emailToken)
+        private readonly IConfiguration _configuration;
+        public EmailBody(IConfiguration configuration)
         {
+            _configuration = configuration;
+        }
+        public string EmailStringBody(string email, string emailToken)
+        {
+            string LinkSendEmail = _configuration.GetSection("SendEmail").Value;
             return $@"<html>
 <head>
 </head>
@@ -15,7 +23,7 @@
                 <hr>
                 <p>You're receiving this e-mail because you requested a password reset for your signin account. </p>
                 <p>Please tap the button below to choose a new password.</p>
-                <a href=""http://localhost:4200/reset?email={email}&code={emailToken}"" target=""_blank"" style=""Background:#0d6efd;padding:10px;border:none;color:white;border-radius:4px;display:block;margin:0 auto;width:50%;text-align:center;text-decoration:none;""> Reset Password</a><br>
+                <a href=""{LinkSendEmail}{email}&code={emailToken}"" target=""_blank"" style=""Background:#0d6efd;padding:10px;border:none;color:white;border-radius:4px;display:block;margin:0 auto;width:50%;text-align:center;text-decoration:none;""> Reset Password</a><br>
                 
                 <p>Kind Regards,<br><br>
                 Let's program</p>
