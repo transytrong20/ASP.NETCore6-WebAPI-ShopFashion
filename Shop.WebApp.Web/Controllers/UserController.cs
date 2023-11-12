@@ -119,8 +119,8 @@ namespace Shop.WebApp.Web.Controllers
                 x.Username,
                 x.Email,
                 x.Phone,
-                Roles = x.Roles.Select(ur => ur.Role.Name).ToList(),
-            }).ToList();
+                Roles = x.Roles.Select(ur => ur.Role.Name).FirstOrDefault(),
+            }).FirstOrDefault();
             if (userInfo == null)
             {
                 return NotFound("User information not found.");
