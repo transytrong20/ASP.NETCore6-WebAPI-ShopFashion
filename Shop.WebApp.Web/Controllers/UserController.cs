@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.Email;
 using Shop.Webapp.Application.Email.Model;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Application.Services.Abstracts;
+using Shop.Webapp.Domain;
+using Shop.Webapp.EFcore.Repositories.Abstracts;
 using Shop.Webapp.Shared.ApiModels.ResponseMessage;
 using Shop.Webapp.Shared.ApiModels.Results;
 using Shop.Webapp.Shared.ConstsDatas;
@@ -18,10 +21,12 @@ namespace Shop.WebApp.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
-        public UserController(IUserService userService, IEmailService emailService)
+        private readonly IRepository<User> _userRepository;
+        public UserController(IUserService userService, IEmailService emailService, IRepository<User> userRepository)
         {
             _userService = userService;
             _emailService = emailService;
+            _userRepository = userRepository;
         }
 
         [AllowAnonymous]
@@ -98,6 +103,29 @@ namespace Shop.WebApp.Web.Controllers
         {
             var result = await _emailService.ResetPasswordAsync(reset);
             return result;
+        }
+
+        
+
+        [HttpGet("userinfo")]
+        public IActionResult GetUserInfo()
+        {
+            var role = User.FindFirst(CustomeClaimTypes.Role)?.Value;
+            var username = User.FindFirst(CustomeClaimTypes.Username)?.Value;
+
+            var userInfo = _userRepository.AsNoTracking().Where(x => x.Username == username).Include(x => x.Roles).ThenInclude(ur => ur.Role).Select(x => new
+            {
+                x.Name,
+                x.Username,
+                x.Email,
+                x.Phone,
+                Roles = x.Roles.Select(ur => ur.Role.Name).ToList(),
+            }).ToList();
+            if (userInfo == null)
+            {
+                return NotFound("User information not found.");
+            }
+            return Ok(userInfo);
         }
     }
 }
