@@ -45,6 +45,7 @@ namespace Shop.Webapp.Application.Auth
             if (user == null)
                 throw new CustomerException("Thông tin tài khoản hoặc mật khẩu không chính xác!");
 
+
             if (!await _userManager.CheckAllowLoginAsync(user))
                 throw new CustomerException("Tài khoản của bạn đang bị khóa, vui lòng thử lại sau!");
 

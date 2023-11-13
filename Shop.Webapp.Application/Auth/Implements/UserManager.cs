@@ -157,6 +157,9 @@ namespace Shop.Webapp.Application.Auth.Implements
             if (passwordHash == user.PasswordHash)
                 return true;
 
+            if (passwordHash != user.PasswordHash)
+                throw new CustomerException($"Tài Khoản mật khẩu không chính xác");
+
             if (!user.AllowLockUser)
                 return false;
 
