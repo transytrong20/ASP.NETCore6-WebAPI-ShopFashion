@@ -12,6 +12,8 @@ using Shop.Webapp.EFcore.Repositories.Abstracts;
 using Shop.Webapp.EFcore.Repositories.Impls;
 using Shop.Webapp.Shared.ApiModels;
 using Shop.Webapp.Shared.ApiModels.Requests;
+using Shop.Webapp.Shared.Commons;
+using Shop.Webapp.Shared.ConstsDatas;
 using Shop.Webapp.Shared.Exceptions;
 using System.Security.Cryptography;
 
@@ -71,8 +73,14 @@ namespace Shop.Webapp.Application.Email
             DateTime emailTokenExpiry = user.ResetPasswordExpiry;
             if (tokenCode != reset.EmailToken || emailTokenExpiry < DateTime.Now)
                 throw new NotFoundException("Invalid Reset link!");
-            _appDbContext.Entry(user).State = EntityState.Modified;
-            _appDbContext.SaveChangesAsync();
+
+            var pwdValid = reset.NewPassword.ValidatePassword();
+            if (!string.IsNullOrEmpty(pwdValid))
+                ThrowModelError(nameof(reset.NewPassword), MessageError.PwdIsNotValid);
+
+            string newHashedPassword = reset.NewPassword.GetPasswordHash(reset.NewPassword);
+            user.PasswordHash = newHashedPassword;
+            await _userRepository.UpdateAsync(user);
             return new OkObjectResult(new GenericOkResult<User>(200, "Password Reset Successfully", user));
         }
     }
