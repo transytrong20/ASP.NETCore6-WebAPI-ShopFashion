@@ -90,7 +90,7 @@ namespace Shop.WebApp.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("send-reset-email{email}")]
+        [HttpPost("send-reset-email/{email}")]
         public async Task<IActionResult> SendEmail(string email)
         {
             var result = await _emailService.SendEmailAsync(email);
@@ -115,6 +115,7 @@ namespace Shop.WebApp.Web.Controllers
 
             var userInfo = _userRepository.AsNoTracking().Where(x => x.Username == username).Include(x => x.Roles).ThenInclude(ur => ur.Role).Select(x => new
             {
+                x.Id,
                 x.Name,
                 x.Username,
                 x.Email,
