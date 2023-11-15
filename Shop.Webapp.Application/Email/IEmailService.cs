@@ -78,7 +78,7 @@ namespace Shop.Webapp.Application.Email
             if (!string.IsNullOrEmpty(pwdValid))
                 ThrowModelError(nameof(reset.NewPassword), MessageError.PwdIsNotValid);
 
-            string newHashedPassword = reset.NewPassword.GetPasswordHash(reset.NewPassword);
+            string newHashedPassword = reset.NewPassword.GetPasswordHash(user.HashCode);
             user.PasswordHash = newHashedPassword;
             await _userRepository.UpdateAsync(user);
             return new OkObjectResult(new GenericOkResult<User>(200, "Password Reset Successfully", user));
