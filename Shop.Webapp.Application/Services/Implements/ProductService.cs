@@ -208,6 +208,8 @@ namespace Shop.Webapp.Application.Services.Implements
                     Discount = x.Discount,
                     Accepted = x.Accepted,
                     Index = x.Index,
+                    Sale = x.Sale,
+                    New = x.New,
                     CategoryId = categoryId,
                     CategoryName = _categoryRepository.AsNoTracking().Where(x => x.Id == categoryId).Select(x => x.Name).ToArray()
                 };
@@ -223,6 +225,7 @@ namespace Shop.Webapp.Application.Services.Implements
             foreach (var p in product)
             {
                 ProductDto list = new ProductDto();
+                list.Id= p.Id;
                 list.Name = p.Name;
                 list.Description = p.Description;
                 list.Price = p.Price;
@@ -247,6 +250,7 @@ namespace Shop.Webapp.Application.Services.Implements
             foreach (var p in product)
             {
                 ProductDto list = new ProductDto();
+                list.Id = p.Id;
                 list.Name = p.Name;
                 list.Description = p.Description;
                 list.Price = p.Price;
