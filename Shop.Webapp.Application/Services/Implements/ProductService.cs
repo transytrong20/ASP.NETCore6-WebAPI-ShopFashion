@@ -200,6 +200,7 @@ namespace Shop.Webapp.Application.Services.Implements
                 var categoryId = categories.Select(c => c.CategoryId).FirstOrDefault();
                 return new ProductDto
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                     Price = x.Price,
