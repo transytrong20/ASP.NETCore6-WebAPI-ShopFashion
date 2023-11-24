@@ -67,5 +67,12 @@ namespace Shop.WebApp.Web.Controllers
         {
             return await _productService.UpdateIndexAsync(indexId, index);
         }
+
+        [HttpGet("similarProduct")]
+        public IActionResult SimilarProduct(Guid categoryId)
+        {
+            var result = _productService.SimilarProduct(categoryId);
+            return Ok(result);
+        }
     }
 }

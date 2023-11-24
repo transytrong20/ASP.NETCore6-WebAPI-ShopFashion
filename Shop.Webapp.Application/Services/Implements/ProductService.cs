@@ -268,5 +268,30 @@ namespace Shop.Webapp.Application.Services.Implements
             }
             return result;
         }
+
+        public List<ProductDto> SimilarProduct(Guid categoryId)
+        {
+            List<ProductDto> result = new List<ProductDto>();
+            var product = _productRepository.AsNoTracking().Include(x=> x.Categories).Where(x => x.Categories.Any(c => c.CategoryId == categoryId)).OrderBy(x => x.Sold).Take(4).ToList();
+            foreach (var p in product)
+            {
+                ProductDto list = new ProductDto();
+                list.Id = p.Id;
+                list.Name = p.Name;
+                list.Description = p.Description;
+                list.Price = p.Price;
+                list.Image = p.Image;
+                list.Status = p.Status;
+                list.Discount = p.Discount;
+                list.Accepted = p.Accepted;
+                list.Index = p.Index;
+                list.New = p.New;
+                list.Sale = p.Sale;
+                list.SaleTurn = p.SaleTurn;
+
+                result.Add(list);
+            }
+            return result;
+        }
     }
 }
