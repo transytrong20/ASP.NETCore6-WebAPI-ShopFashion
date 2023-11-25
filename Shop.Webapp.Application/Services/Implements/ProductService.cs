@@ -269,10 +269,10 @@ namespace Shop.Webapp.Application.Services.Implements
             return result;
         }
 
-        public List<ProductDto> SimilarProduct(Guid categoryId)
+        public List<ProductDto> SimilarProduct(Guid id)
         {
             List<ProductDto> result = new List<ProductDto>();
-            var product = _productRepository.AsNoTracking().Include(x=> x.Categories).Where(x => x.Categories.Any(c => c.CategoryId == categoryId)).OrderBy(x => x.Sold).Take(4).ToList();
+            var product = _productRepository.AsNoTracking().Include(x=> x.Categories).Where(x => x.Categories.Any(c => c.CategoryId == id)).OrderBy(x => x.Sold).Take(4).ToList();
             foreach (var p in product)
             {
                 ProductDto list = new ProductDto();

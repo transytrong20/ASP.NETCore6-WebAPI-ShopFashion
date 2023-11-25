@@ -68,10 +68,10 @@ namespace Shop.WebApp.Web.Controllers
             return await _productService.UpdateIndexAsync(indexId, index);
         }
 
-        [HttpGet("similarProduct")]
-        public IActionResult SimilarProduct(Guid categoryId)
+        [HttpGet("similarProduct/{id}")]
+        public IActionResult SimilarProduct(Guid id)
         {
-            var result = _productService.SimilarProduct(categoryId);
+            var result = _productService.SimilarProduct(id);
             return Ok(result);
         }
     }
