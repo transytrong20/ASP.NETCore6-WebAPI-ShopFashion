@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.Helpers;
@@ -21,7 +22,12 @@ namespace Shop.Webapp.Application.Services.Implements
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<CategoryProduct> _categoryProductRepository;
         private readonly CreateOrUpdateProductValidator _productValidator;
+        private readonly IRepository<Cart> _cartRepository;
+        private readonly IRepository<User> _usertRepository;
+
         public ProductService(
+            IRepository<Cart> cartRepository,
+            IRepository<User> usertRepository,
             IRepository<Category> categoryRepository,
             IRepository<Product> productRepository,
             IRepository<CategoryProduct> categoryProductRepository,
@@ -35,6 +41,8 @@ namespace Shop.Webapp.Application.Services.Implements
             _productRepository = productRepository;
             _categoryProductRepository = categoryProductRepository;
             _productValidator = productValidator;
+            _cartRepository = cartRepository;
+            _usertRepository = usertRepository;
         }
 
         public async Task<ProductDto> CreateAsync(CreateOrUpdateProductModel model)
@@ -292,6 +300,21 @@ namespace Shop.Webapp.Application.Services.Implements
                 result.Add(list);
             }
             return result;
+        }
+
+        public async Task<CartDto> AddToCartAsync(CreateCartModel model)
+        {
+            if (!_productRepository.AsNoTracking().Any(_ => model.ProductId == _.Id))
+                ThrowModelError(nameof(model.ProductId), MessageError.DataNotFound);
+            if (!_usertRepository.AsNoTracking().Any(_ => model.UserId == _.Id))
+                ThrowModelError(nameof(model.UserId), MessageError.DataNotFound);
+
+            var product = Mapper.Map<Cart>(model);
+
+            await UnitOfWork.BeginTransactionAsync();
+            await _cartRepository.InsertAsync(product);
+            await UnitOfWork.SaveChangesAsync();
+            return Mapper.Map<CartDto>(product);
         }
     }
 }

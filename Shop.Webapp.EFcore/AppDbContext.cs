@@ -16,6 +16,7 @@ namespace Shop.Webapp.EFcore
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categorys { get; set; }
         public DbSet<CategoryProduct> CategoryProduct { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

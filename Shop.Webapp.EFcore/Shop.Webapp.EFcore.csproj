@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Shop.Webapp.Shared\Shop.Webapp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

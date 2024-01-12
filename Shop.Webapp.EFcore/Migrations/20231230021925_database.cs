@@ -135,6 +135,9 @@ namespace Shop.Webapp.EFcore.Migrations
                     Discount = table.Column<int>(type: "int", nullable: true),
                     Index = table.Column<int>(type: "int", nullable: true),
                     Accepted = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    New = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    Sale = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    SaleTurn = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -213,14 +216,19 @@ namespace Shop.Webapp.EFcore.Migrations
                 values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), "Quyền admin, quản lý toàn bộ trang web", false, "manager", true });
 
             migrationBuilder.InsertData(
+                table: "shop_role",
+                columns: new[] { "Id", "Description", "IsDefault", "Name", "Static" },
+                values: new object[] { new Guid("9fdf3383-125f-4b87-a8d9-9e235a4e3652"), "tài khoản dành cho user", false, "user", true });
+
+            migrationBuilder.InsertData(
                 table: "shop_user",
                 columns: new[] { "Id", "AccessFailCount", "AllowLockUser", "Avatar", "CreatedBy", "CreatedTime", "DeletedBy", "DeletedTime", "Email", "EmailVerified", "EmailVerifiedTime", "EndLockedTime", "HashCode", "IsDeleted", "IsLocked", "LastModifiedBy", "LastModifiedTime", "Name", "PasswordHash", "Phone", "PhoneVerified", "PhoneVerifiedTime", "ResetPasswordExpiry", "ResetPasswordToken", "SurName", "Username" },
-                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 10, 31, 10, 28, 43, 94, DateTimeKind.Local).AddTicks(5928), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", null, false, null, new DateTime(2023, 10, 31, 3, 28, 43, 94, DateTimeKind.Utc).AddTicks(5923), null, "Tài khoản admin", "manager" });
+                values: new object[] { new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), 0, false, null, null, new DateTime(2023, 12, 30, 9, 19, 25, 76, DateTimeKind.Local).AddTicks(244), null, null, "manager@gmail.com", true, null, null, "49267eb3-4174-4081-a3e0-c57cfc001355", false, false, null, null, "Admin Manager", "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=", "1", false, null, new DateTime(2023, 12, 30, 2, 19, 25, 76, DateTimeKind.Utc).AddTicks(238), null, "Tài khoản admin", "manager" });
 
             migrationBuilder.InsertData(
                 table: "shop_userrole",
                 columns: new[] { "RoleId", "UserId", "Id" },
-                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("5423e218-df68-4bdf-a3db-0c2608a18d1d") });
+                values: new object[] { new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"), new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"), new Guid("a33f515b-ad78-4910-976c-a4261ade2614") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_shop_category_product_ProductId",

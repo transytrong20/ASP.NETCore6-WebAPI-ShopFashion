@@ -74,5 +74,12 @@ namespace Shop.WebApp.Web.Controllers
             var result = _productService.SimilarProduct(id);
             return Ok(result);
         }
+
+        [HttpPost("add-to-cart")]
+        public IActionResult AddToCart([FromForm] CreateCartModel model)
+        {
+            var result = _productService.AddToCartAsync(model);
+            return Ok(result);
+        }
     }
 }

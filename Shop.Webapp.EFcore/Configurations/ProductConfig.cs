@@ -21,6 +21,10 @@ namespace Shop.Webapp.EFcore.Configurations
             builder.Entity<CategoryProduct>()
                 .ToTable($"{ApplicationConsts.Schema}_category_product")
                 .HasKey(_ => new { _.CategoryId, _.ProductId });
+
+            builder.Entity<Cart>()
+                .ToTable($"{ApplicationConsts.Schema}_cart")
+                .HasKey(_ => new { _.UserId, _.ProductId });
         }
     }
 }

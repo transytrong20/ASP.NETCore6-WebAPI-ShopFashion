@@ -11,8 +11,8 @@ using Shop.Webapp.EFcore;
 namespace Shop.Webapp.EFcore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231102062146_database_v2")]
-    partial class database_v2
+    [Migration("20240112073431_database-12-01-2024")]
+    partial class database12012024
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,81 @@ namespace Shop.Webapp.EFcore.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.Property<Guid>("CartsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("CartsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("CartProduct");
+                });
+
+            modelBuilder.Entity("CartUser", b =>
+                {
+                    b.Property<Guid>("CartsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("CartsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("CartUser");
+                });
+
+            modelBuilder.Entity("Shop.Webapp.Domain.Cart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("DeletedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart");
+                });
 
             modelBuilder.Entity("Shop.Webapp.Domain.Category", b =>
                 {
@@ -316,7 +391,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-                            CreatedTime = new DateTime(2023, 11, 2, 13, 21, 46, 374, DateTimeKind.Local).AddTicks(2193),
+                            CreatedTime = new DateTime(2024, 1, 12, 14, 34, 30, 873, DateTimeKind.Local).AddTicks(7184),
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -326,7 +401,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             Phone = "1",
                             PhoneVerified = false,
-                            ResetPasswordExpiry = new DateTime(2023, 11, 2, 6, 21, 46, 374, DateTimeKind.Utc).AddTicks(2188),
+                            ResetPasswordExpiry = new DateTime(2024, 1, 12, 7, 34, 30, 873, DateTimeKind.Utc).AddTicks(7172),
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -354,8 +429,38 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-                            Id = new Guid("03357bdc-545a-4392-ab8e-f095c3cebb08")
+                            Id = new Guid("2d74489f-8e7d-4e5c-a900-b38b30c2caa4")
                         });
+                });
+
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.HasOne("Shop.Webapp.Domain.Cart", null)
+                        .WithMany()
+                        .HasForeignKey("CartsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shop.Webapp.Domain.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CartUser", b =>
+                {
+                    b.HasOne("Shop.Webapp.Domain.Cart", null)
+                        .WithMany()
+                        .HasForeignKey("CartsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shop.Webapp.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Webapp.Domain.CategoryProduct", b =>

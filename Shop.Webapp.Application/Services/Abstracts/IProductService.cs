@@ -16,5 +16,6 @@ namespace Shop.Webapp.Application.Services.Abstracts
         public List<ProductDto> GetlistProductSaleTurn();
         Task<string> UpdateIndexAsync(Guid indexId, int index);
         public List<ProductDto> SimilarProduct(Guid id);
+        Task<CartDto> AddToCartAsync(CreateCartModel model);
     }
 }
