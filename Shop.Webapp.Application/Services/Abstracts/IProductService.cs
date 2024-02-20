@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Webapp.Application.Dto;
+﻿using Shop.Webapp.Application.Dto;
 using Shop.Webapp.Application.RequestObjects;
 using Shop.Webapp.Shared.ApiModels.Results;
 
@@ -16,6 +15,6 @@ namespace Shop.Webapp.Application.Services.Abstracts
         public List<ProductDto> GetlistProductSaleTurn();
         Task<string> UpdateIndexAsync(Guid indexId, int index);
         public List<ProductDto> SimilarProduct(Guid id);
-        Task<CartDto> AddToCartAsync(CreateCartModel model);
+
     }
 }

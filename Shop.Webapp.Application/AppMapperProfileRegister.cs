@@ -20,6 +20,7 @@ namespace Shop.Webapp.Application
             CreateMap<UpdateUserModel, User>();
             CreateMap<CreateOrUpdateProductModel, Product>();
             CreateMap<CreateOrUpdateCategoryModel, Category>();
+            CreateMap<CreateCartModel, CartProduct>();
         }
 
         private void EntityToDto()
@@ -28,6 +29,7 @@ namespace Shop.Webapp.Application
             CreateMap<User, UserDto>();
             CreateMap<Product, ProductDto>();
             CreateMap<Category, CategoryDto>();
+            CreateMap<CartProduct, CartDto>();
         }
     }
 }

@@ -19,5 +19,6 @@ namespace Shop.Webapp.Domain
         public bool? Sale { get; set; } //sản phẩm giảm giá
         public int? SaleTurn { get; set; } = 0; //lượt bán hàng 
         public virtual IEnumerable<CategoryProduct> Categories { get; set; }
+        public virtual IEnumerable<CartProduct> CartProducts { get; set; }
     }
 }

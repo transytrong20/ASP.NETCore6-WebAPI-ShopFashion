@@ -34,5 +34,6 @@ namespace Shop.Webapp.Domain
         public DateTime ResetPasswordExpiry { get; set; } = DateTime.UtcNow;
 
         public virtual ICollection<UserRole> Roles { get; set; }
+        public virtual IEnumerable<Product> Products { get; set; }
     }
 }

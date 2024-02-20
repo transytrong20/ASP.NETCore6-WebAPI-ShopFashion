@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Webapp.EFcore;
 
@@ -10,9 +11,10 @@ using Shop.Webapp.EFcore;
 namespace Shop.Webapp.EFcore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240114111359_update-v3")]
+    partial class updatev3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,10 +85,8 @@ namespace Shop.Webapp.EFcore.Migrations
 
             modelBuilder.Entity("Shop.Webapp.Domain.Carts", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<Guid?>("CreatedBy")
@@ -101,9 +101,6 @@ namespace Shop.Webapp.EFcore.Migrations
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
@@ -113,6 +110,9 @@ namespace Shop.Webapp.EFcore.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -120,11 +120,16 @@ namespace Shop.Webapp.EFcore.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("UserId", "ProductId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("shop_carts", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Shop.Webapp.Domain.Category", b =>
@@ -277,14 +282,9 @@ namespace Shop.Webapp.EFcore.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("shop_product", (string)null);
                 });
@@ -427,7 +427,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             Id = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
                             AccessFailCount = 0,
                             AllowLockUser = false,
-                            CreatedTime = new DateTime(2024, 1, 14, 19, 39, 9, 321, DateTimeKind.Local).AddTicks(1946),
+                            CreatedTime = new DateTime(2024, 1, 14, 18, 13, 58, 161, DateTimeKind.Local).AddTicks(4750),
                             Email = "manager@gmail.com",
                             EmailVerified = true,
                             HashCode = "49267eb3-4174-4081-a3e0-c57cfc001355",
@@ -437,7 +437,7 @@ namespace Shop.Webapp.EFcore.Migrations
                             PasswordHash = "FV4IPiVEhApgRQ5/dbS/bMRQbA+0c3Soi5lwlZVLFQ8=",
                             Phone = "1",
                             PhoneVerified = false,
-                            ResetPasswordExpiry = new DateTime(2024, 1, 14, 12, 39, 9, 321, DateTimeKind.Utc).AddTicks(1940),
+                            ResetPasswordExpiry = new DateTime(2024, 1, 14, 11, 13, 58, 161, DateTimeKind.Utc).AddTicks(4741),
                             SurName = "Tài khoản admin",
                             Username = "manager"
                         });
@@ -465,7 +465,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         {
                             RoleId = new Guid("7299f85a-344e-4045-944b-aba6e4cd58a1"),
                             UserId = new Guid("49267eb3-4174-4081-a3e0-c57cfc001353"),
-                            Id = new Guid("2fa86abc-fc2f-4199-b563-786946d6444b")
+                            Id = new Guid("a21100fe-c029-40c0-9bbd-15f0c240d5d6")
                         });
                 });
 
@@ -505,7 +505,7 @@ namespace Shop.Webapp.EFcore.Migrations
                         .IsRequired();
 
                     b.HasOne("Shop.Webapp.Domain.User", "User")
-                        .WithMany()
+                        .WithMany("Cartss")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -539,10 +539,6 @@ namespace Shop.Webapp.EFcore.Migrations
                     b.HasOne("Shop.Webapp.Domain.Category", null)
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Shop.Webapp.Domain.User", null)
-                        .WithMany("Products")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Shop.Webapp.Domain.UserRole", b =>
@@ -592,7 +588,7 @@ namespace Shop.Webapp.EFcore.Migrations
                 {
                     b.Navigation("CartProducts");
 
-                    b.Navigation("Products");
+                    b.Navigation("Cartss");
 
                     b.Navigation("Roles");
                 });
